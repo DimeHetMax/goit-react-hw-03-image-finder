@@ -7,14 +7,12 @@ export class App extends React.Component{
     images:[],
     query: "",
     page: 1,
-    isLoading: false,
-    
   }
   componentDidUpdate(){
 
   }
   handleQuery =(value)=>{
-    console.log(value)
+    // console.log(value)
     this.setState({query: value})
   }
   render() {
@@ -23,10 +21,6 @@ export class App extends React.Component{
       <>
       <Searchbar onSubmit={this.handleQuery}/>
       <ImageGallery query={this.state.query} />
-      {/* <div>
-        {this.state.isLoading && (<h1>Loading content...</h1>)}
-        {this.state.images.length>0 && (<p>We have array with images</p>)}
-      </div> */}
       </>
     );
   }

@@ -1,0 +1,12 @@
+.searchbar{
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    background: rgb(68 85 176);
+    padding: 10px;
+}
+.form{
+    display: flex;
+    margin: 0 auto;
+    width: 250px;
+}
