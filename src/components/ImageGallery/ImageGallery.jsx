@@ -41,7 +41,6 @@ export class ImageGallery extends React.Component{
     }
     render(){
         const {images,error, isLoading} = this.state
-        const {onButtonClick} = this.props
         console.log(images)
         // console.log("this state in ImageGallery component",this.state)
 
