@@ -8,7 +8,7 @@ export class Modal extends React.Component{
 
             <div className={css.overlay} onClick={onCloseModal}>
                 <div className={css.modal}>
-                    <img src={image.src} alt={image.alt} />
+                    <img src={image.src} alt={image.alt} className={css.image}/>
                 </div>
             </div>
         )
