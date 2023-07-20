@@ -1,4 +1,6 @@
 import React from 'react';
+import { IconContext } from "react-icons";
+import { FaSearch } from 'react-icons/fa';
 import css from "./Searchbar.module.css"
 
 
@@ -23,18 +25,20 @@ export class Searchbar extends React.Component{
         return(
             <header className={css.searchbar}>
             <form className={css.form} onSubmit={this.handleSearchbar}>
-                <button type="submit" className="button">
-                <span className="button-label">Search</span>
+                <button type="submit" className={css.button}>
+                <IconContext.Provider value={{ color: "#4455b0", size:"20px" }}>
+                    <FaSearch />
+                </IconContext.Provider>
                 </button>
-
                 <input
-                className="input"
+                className={css.input}
                 type="text"
                 autoComplete="off"
                 autoFocus
-                placeholder="Search images and photos"
+                placeholder="Search images"
                 onChange={this.handleQueryChange}
                 />
+              
             </form>
             </header>
         )

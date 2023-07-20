@@ -10,11 +10,21 @@ export class ImageGallery extends React.Component{
         images:[],
         isLoading: false,
         error: null, 
-        page: 1
+        page: 1,
     }
     handleButtonLoadMore =(e)=>{
-        console.log("Hello")
-      }
+        console.log("Before state",this.state)
+        this.setState(prevState => ({
+          page: prevState.page + 1
+        }));
+        console.log("After state",this.state)
+      };
+    getImage = (event)=>{
+        console.log(event.target.src)
+        console.log(event.target.alt)
+        console.log("in function getImage")
+        this.props.onImage({src: event.target.src, alt: event.target.alt})
+    }
     componentDidUpdate(prevProp, prevState ){
         if(prevProp.query !== this.props.query){
             console.log("pprevProp.query !== this.props.querye, They are not the same!!!")
@@ -33,7 +43,13 @@ export class ImageGallery extends React.Component{
                     new Error(`Add another word, not: ${this.props.query}`)
                 )
             })
-            .then(({data}) => this.setState({images: data.hits}))
+            .then(({data}) => this.setState(
+                prevState =>{
+                    const array = [...prevState.images, ...data.hits]
+                    return{images: array,
+                    page: prevState.page+ 1}
+                }
+            ))
             .catch(error => this.setState({error}))
             .finally(()=> this.setState({isLoading:false}))
         }
@@ -46,7 +62,7 @@ export class ImageGallery extends React.Component{
 
         return(
             <>
-            <ul className={css.gallery}>
+            <ul className={css.gallery} onClick={this.getImage}>
                 {error &&  <p >You see the {error.message}</p>}
                 {isLoading && <Loader/>}
                 {/* {images.length === 0 && this.props.query!== "" && error=== null&& isLoading!==true &&<p>{`There is no pics with word:${this.props.query}`}</p>} */}
@@ -56,7 +72,7 @@ export class ImageGallery extends React.Component{
                     )
                 })}
             </ul>
-            {images.length !==0 && <Button onButtonClick={this.handleButtonLoadMore}/>}
+            {images.length !==0 && <Button onButtonClick={this.handleButtonLoadMore} page={this.state.page}/>}
             </>
         )
     }

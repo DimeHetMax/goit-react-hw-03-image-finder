@@ -9,4 +9,22 @@
     display: flex;
     margin: 0 auto;
     width: 250px;
+    position: relative;
+   
+}
+.input{
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 49%;
+    right: 40%;
+    transform: translate(40%, -49%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
