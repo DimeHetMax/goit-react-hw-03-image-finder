@@ -3,9 +3,10 @@ import css from "./Button.module.css"
 export class Button extends React.Component{
     
     render(){
-        const {onButtonClick} = this.props
+        const {onClick} = this.props
        return(
-        <button className={css.button} onClick={onButtonClick}>Load more</button>
+
+        <button className={css.button} onClick={onClick}>Load more</button>
        )
     }
 }
