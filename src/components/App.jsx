@@ -7,17 +7,16 @@ import { Loader } from "components/Loader/Loader";
 import {fetchImg} from "components/API"
 // import { nanoid } from 'nanoid'
 
-
-
 export class App extends React.Component{
   state = {
     images:[],
     modalImage: {},
-    isLoading: false,
+    totalHit: null,
     error: null, 
+    isLoading: false,
+    showModal: false,
     query: "",
     page: 1,
-    showModal: false,
   }
   handleQuery = (value) =>{
     this.setState({query: value})
@@ -34,7 +33,10 @@ export class App extends React.Component{
     })
   }
   componentDidUpdate(prevProp, prevState){
-    const {query,page} = this.state
+    const {query, page} = this.state;
+    if(prevState.query !== query){
+      this.setState({images:[], page: 1})
+    }
     if(prevState.query !== query || prevState.page !== page){
       this.setState({isLoading:true})
       fetchImg(query, page)
@@ -47,29 +49,27 @@ export class App extends React.Component{
           )
       })
      .then(({data})=> this.setState(prevState =>{
-      console.log("PREVSTATE in DATA :::",prevState)
-      console.log("PREVSTATE.images:::", prevState.images)
       return{
-        images: [...prevState.images, ...data.hits]
+        images: [...prevState.images, ...data.hits],
+        totalHit: data.totalHits,
       }
      }))
-      // .then(({data}) => this.setState({images: data.hits}))
       .catch(error => this.setState({error}))
-      .finally(()=> this.setState({isLoading:false}))
+      .finally(()=> this.setState({isLoading:false, loadMore: true,}))
     }
+  
   }
   render() {
-    const {images, error, isLoading, query,modalImage}= this.state
-    console.log("STATE:",this.state)
+    const {images, error, isLoading, modalImage, totalHit}= this.state
+    const loadMore = totalHit > images.length;
     return (
       <>
-      <Searchbar onSubmit={this.handleQuery}/>
-      {error &&  <p >You see the {error.message}</p>}
-      {isLoading && <Loader/>}
-      <ImageGallery onImage={this.onImageClick} images={images}/>
-     
-      {this.state.showModal && <Modal image={modalImage} onCloseModal={this.onCloseModal}/>}
-      {query !=="" && <Button onClick={this.onClickButton}/>} 
+        <Searchbar onSubmit={this.handleQuery}/>
+        {error &&  <p>You see the {error.message}</p>}
+        {isLoading && <Loader/>}
+        <ImageGallery onImage={this.onImageClick} images={images}/>
+        {this.state.showModal && <Modal image={modalImage} onCloseModal={this.onCloseModal}/>}
+        {loadMore && <Button onClick={this.onClickButton}/>} 
       </>
     );
   }

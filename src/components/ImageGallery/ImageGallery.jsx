@@ -4,16 +4,10 @@ import css from "./ImageGallery.module.css"
 
 export class ImageGallery extends React.Component{
     getImage = (event)=>{
-        // console.log(event.target.name)
-        // console.log(event.target.alt)
-        // console.log("in function getImage")
         this.props.onImage({src: event.target.name, alt: event.target.alt})
     }
-
-    
     render(){
-        const {images} = this.props
-        console.log(images)
+        const {images} = this.props;
         return(
             <>
             <ul className={css.gallery} onClick={this.getImage}>

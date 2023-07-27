@@ -1,9 +1,11 @@
 import React from "react";
 import { Oval } from  'react-loader-spinner'
+import css from "./Loader.module.css"
 export class Loader extends React.Component{
     render(){
         return(
-            <Oval
+            <div className={css.loader}>
+                <Oval
                 height={50}
                 width={50}
                 color="#4455b0"
@@ -15,6 +17,7 @@ export class Loader extends React.Component{
                 strokeWidth={2}
                 strokeWidthSecondary={2}
                 />
+            </div>
         )
     }
 }

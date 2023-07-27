@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-console.log(axios.isCancel('something'));
+// console.log(axios.isCancel('something'));
 
 const KEY = "36536171-20dffb6feebbd7a17f40a2c96";
 
