@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { IconContext } from "react-icons";
 import { FaSearch } from 'react-icons/fa';
 import css from "./Searchbar.module.css"
@@ -43,4 +44,8 @@ export class Searchbar extends React.Component{
             </header>
         )
     }
+}
+
+Searchbar.propTypes = {
+    onSubmit: PropTypes.func.isRequired
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { ImageGalleryItem } from "components/ImageGalleryItem/ImageGalleryItem";
 import css from "./ImageGallery.module.css"
 
@@ -13,7 +14,7 @@ export class ImageGallery extends React.Component{
             <ul className={css.gallery} onClick={this.getImage}>
                 {images.map(({id,webformatURL,largeImageURL,tags})=>{
                     return(
-                    <ImageGalleryItem key={id} url={webformatURL} large={largeImageURL} alt={tags}/>
+                    <ImageGalleryItem key={id} keyId={id} url={webformatURL} large={largeImageURL} alt={tags}/>
                     )
                 })}
 
@@ -22,4 +23,9 @@ export class ImageGallery extends React.Component{
             </>
         )
     }
+}
+
+ImageGallery.propTypes ={
+    images: PropTypes.arrayOf(PropTypes.object),
+    onImage: PropTypes.func.isRequired,
 }
